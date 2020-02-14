@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<!--    <f:metadata>
+        <f:viewAction action="#{testsurveyController.updateAnswers()}"/>
+    </f:metadata>-->
+    <h:body>
+        <ui:composition template="common/common.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <h:dataTable var="singleAnswer"
+                                 value="#{testsurveyController.answers}"
+                                 columnClasses="admincol1,admincol2,admincol3,admincol4,admincol5,
+                         admincol6,admincol7,admincol8,admincol9,admincol10"
+                                 class="indexPanelClass">
+                        <h:column>
+                            <f:facet name="header">Answer text</f:facet>
+                            <h:inputText style="width: 100px" value="#{singleAnswer.answertext}"></h:inputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Answer number</f:facet>
+                            <h:outputText style="width: 100px" value="#{singleAnswer.answernumber}"></h:outputText>
+                        </h:column>
+                        <h:column rendered="#{testsurveyController.isTest()}">
+                            <f:facet name="header">True/false answer</f:facet>
+                            <h:selectOneMenu required="true" 
+                                             value="#{singleAnswer.istrue}">
+                                <f:selectItem itemValue="0" itemLabel="False" />
+                                <f:selectItem itemValue="1" itemLabel="True"/>
+                            </h:selectOneMenu>
+                        </h:column>
+                        
+                    </h:dataTable>
+                    <h:commandButton value="Update answers" action="#{testsurveyController.updateAnswers()}"></h:commandButton>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

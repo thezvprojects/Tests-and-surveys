@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <h:body>
+        <ui:composition template="common/common.xhtml">
+            <ui:define name="content">
+                <h:form id="form1">
+                    <h:panelGroup style="center" rendered="#{testsurveyController.testsurvey.isTest()}">
+                        <h:outputText value="Time left:"></h:outputText>
+                        <h:outputText id="txt_count" value="#{testsurveyController.timeleft}" />
+                        <hr/>
+<!--                        <h:outputText id="txt_warning" value="Ostalo je malo vremena!" style="color:red" rendered="#{testsurveyController.littletime}"></h:outputText>-->
+                        <p:poll interval="1" 
+                                listener="#{testsurveyController.decrement(testsurveyController.questions,usersController.username)}" 
+                                update="txt_count,ajax" />
+                    </h:panelGroup>
+                <p:dataTable id="table1" 
+                            value="#{testsurveyController.questions}" 
+                             var="singleQuestion">
+                    <f:facet name="header">#{testsurveyController.testsurvey.name}</f:facet>
+                    <p:column headerText="name" style="width:75px;">
+                        <f:facet name="header">Question number</f:facet>
+                        <h:outputLabel value="#{singleQuestion.localnum}"></h:outputLabel>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">Question text</f:facet>
+                        <h:outputLabel value="#{singleQuestion.questiontext}"></h:outputLabel>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">Answers</f:facet>
+<!--                        <p:dataTable value="#{singleQuestion.useranswers}" 
+                                     var="singleUserAnswer"
+                                     rendered="#{singleQuestion.isNumOrShortTextInput()}">
+                            <p:column>
+                                <p:inputTextarea value="#{singleUserAnswer.answertext}"></p:inputTextarea>
+                            </p:column>
+                        </p:dataTable>
+                        <p:dataTable value="#{singleQuestion.useranswers}" 
+                                     var="singleUserAnswer"
+                                     rendered="#{singleQuestion.isLongTextInput()}">
+                            <p:column>
+                                <p:inputTextarea value="#{singleUserAnswer.answertext}"></p:inputTextarea>
+                            </p:column>
+                        </p:dataTable>-->
+                        <p:selectOneRadio value="#{singleQuestion.singleuseranswertext}"
+                                          rendered="#{singleQuestion.isRadioInput()}">
+                            <f:selectItems value="#{singleQuestion.answers}" 
+                                           var="singleAnswer" 
+                                           itemValue="#{singleAnswer.answertext}"
+                                           itemLabel="#{singleAnswer.answertext}"></f:selectItems> 
+                        </p:selectOneRadio>
+                        <p:selectOneMenu value="#{singleQuestion.singleuseranswertext}"
+                                          rendered="#{singleQuestion.isSelectOneInput()}">
+                            <f:selectItems value="#{singleQuestion.answers}" 
+                                           var="singleAnswer" 
+                                           itemValue="#{singleAnswer.answertext}"
+                                           itemLabel="#{singleAnswer.answertext}"></f:selectItems> 
+                        </p:selectOneMenu>
+<!--                        <h:selectManyCheckbox required="true" 
+                                          value="#{singleQuestion.useranswers}"
+                                          rendered="#{singleQuestion.isCheckboxInput()}">
+                            <f:selectItems value="#{singleQuestion.answers}" 
+                                           var="singleAnswer" 
+                                           itemLabel="#{singleAnswer.answertext}"></f:selectItems> 
+                        </h:selectManyCheckbox>-->
+                    </p:column>
+                </p:dataTable >
+                    
+                    <p:dataTable id="table2"
+                            value="#{testsurveyController.questions}" 
+                             var="singleQuestion"
+                             rendered="#{testsurveyController.testsurvey.isTest()}">
+                        <p:column>
+                            <f:facet name="header">Question</f:facet>
+                            <h:outputText value="#{singleQuestion.questiontext}"></h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Points</f:facet>
+                            <h:outputText  value="1/1" style="color:green;" rendered="#{singleQuestion.truewrong}"></h:outputText>
+                            <h:outputText  value="0/1" style="color:red;" rendered="#{not singleQuestion.truewrong}"></h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                    <p:commandButton id="ajax"
+                                     value="Save/Check answers"
+                                     
+                                     rendered="#{testsurveyController.tscontrollerend}"
+                                     actionListener="#{testsurveyController.submitAnswers(testsurveyController.questions,usersController.username)}"
+                             style="margin: 10px">
+                         <p:ajax event="click" update="form1:table2"/>
+                    </p:commandButton>
+                </h:form>
+                <h:form id="form2">
+                    <h:panelGroup id="showend">
+                        <p:commandButton  
+                                        value="End session"
+                                         action="#{testsurveyController.submitEnd(testsurveyController.questions,usersController.username)}"
+                                 style="margin: 10px">
+                        </p:commandButton>
+                    </h:panelGroup>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

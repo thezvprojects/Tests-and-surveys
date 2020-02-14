@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <h:body>
+        <ui:composition template="common/common.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <h:panelGrid id="panel" columns="2" border="0" 
+                                     cellpadding="2" class="indexPanelClass">
+                            <f:facet name = "header">
+                                <p:outputLabel value = "Create a new question to add to the test:"/>
+                            </f:facet> 
+                                <p:outputLabel value = "Question text: " />
+                                <p:inputText value="#{testsurveyController.questionstring}"></p:inputText>
+                                
+                                <p:outputLabel value = "Type of answer: " />
+                                <p:selectOneMenu value = "#{testsurveyController.questiontype}" 
+                                                 panelStyleClass="hideDisabled"> 
+                                    <f:selectItem itemValue = "1" itemLabel = "Numeric value" /> 
+                                    <f:selectItem itemValue = "2" itemLabel = "Short text" /> 
+                                    <f:selectItem itemValue = "3" itemLabel = "Long text" itemDisabled="#{testsurveyController.isTest()}" /> 
+                                    <f:selectItem itemValue = "4" itemLabel = "Radio button" />
+                                    <f:selectItem itemValue = "5" itemLabel = "Select one menu" /> 
+                                    <f:selectItem itemValue = "6" itemLabel = "Checkbox" /> 
+                                    <f:ajax render="selectanswers1 selectanswers2 selectanswers3 selectanswers4 survey1 survey2" ></f:ajax>
+                                </p:selectOneMenu> 
+                                <h:panelGroup id="survey1">
+                                    <p:outputLabel value = "Number of answers: " 
+                                                   rendered="#{testsurveyController.isSurveyNumAndSh()}" />
+                                </h:panelGroup>
+                                <h:panelGroup id="survey2">
+                                    <p:inputText value="#{testsurveyController.numberOfAnswers}" 
+                                                 rendered="#{testsurveyController.isSurveyNumAndSh()}"></p:inputText>
+                                </h:panelGroup>
+                                <h:panelGroup id="selectanswers1">
+                                    <p:outputLabel value = "Possible answers: "
+                                           rendered="#{testsurveyController.isMultipleChoice()}"></p:outputLabel>
+                                </h:panelGroup>
+                                <h:panelGroup id="selectanswers2">          
+                                    <p:inputText value="#{testsurveyController.numberOfAnswers}" 
+                                                 rendered="#{testsurveyController.isMultipleChoice()}"></p:inputText>
+                                                 </h:panelGroup>
+                                <h:panelGroup id="selectanswers3">
+                                    <p:outputLabel value = "True answers: "
+                                           rendered="#{testsurveyController.isCheckbox()}"></p:outputLabel>
+                                           </h:panelGroup>
+                                <h:panelGroup id="selectanswers4">           
+                                    <p:inputText value="#{testsurveyController.trueanswers}" 
+                                                 rendered="#{testsurveyController.isCheckbox()}"></p:inputText>
+                                </h:panelGroup>
+                            <f:facet name = "footer">
+                                <h:panelGroup style = "display:block; text-align:center">
+                                    <p:commandButton id = "submit" value="Add answers" 
+                                                     action = "#{testsurveyController.addQuestion(testsurveyController.name)}" />
+                                </h:panelGroup>                   
+                            </f:facet>
+                        </h:panelGrid>
+                    <hr ></hr>
+                </h:form>
+                <h:form>
+                    <h:dataTable value="#{testsurveyController.questions}" 
+                                 var="singleQuestion"
+                                 columnClasses="questioncol1,admincol2,admincol3,admincol4,admincol5,
+                                 admincol6,admincol7,admincol8,admincol9,admincol10"
+                                 class="indexPanelClass">
+                    <h:column>
+                        <f:facet name="header">Question</f:facet>
+                        <h:outputText value="#{singleQuestion.questiontext}"></h:outputText>               
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Add to your test</f:facet>
+                        <h:commandButton value="Add" 
+                                         action="#{testsurveyController.addQuestionToTest(singleQuestion,testsurveyController.testsurvey)}">
+                        </h:commandButton>
+                    </h:column>
+                    
+                    </h:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

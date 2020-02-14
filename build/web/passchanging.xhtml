@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+	<h:outputStylesheet name="common-style.css" library="css" />
+    </h:head>
+    <h:body>
+        <ui:composition template="common/common.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <h:panelGrid id="chngpass" columns="2" border="0" 
+                                     cellpadding="2" class="indexPanelClass">
+                        <h:outputLabel value = "Old Password: " />
+                        <h:inputSecret value="#{usersController.oldpassword}"></h:inputSecret>
+                        <h:outputLabel value = "New Password: " />
+                        <h:inputSecret value="#{usersController.newpassword}"></h:inputSecret>
+                        <h:outputLabel value = "Confirm New Password: " />
+                        <h:inputSecret value="#{usersController.confirmnewpassword}"></h:inputSecret>
+                        <f:facet name="footer">
+                            <h:commandButton value="Change password" action="#{usersController.changePass()}"></h:commandButton> 
+                        </f:facet>
+                    </h:panelGrid>
+                    
+                </h:form>
+                
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

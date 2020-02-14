@@ -1,0 +1,136 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Dec 23, 2019, 11:40:03 AM
+    Author     : vasoj
+*/
+    /* Add some padding on document's body to prevent the content
+    to go underneath the header and footer */
+    
+    body {
+        margin:0;
+        font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
+    }
+    
+    .admincol1{
+        width:100px;
+        
+    }
+    
+    .admincol2{
+        width:100px;
+    }
+    
+    .admincol3{
+        width:100px;
+    }
+    
+    .admincol4{
+        width:100px;
+    }
+    
+    .admincol5{
+        width:100px;
+    }
+    
+    .admincol6{
+        width:100px;
+    }
+    
+    .admincol7{
+        width:100px;
+    }
+    
+    .admincol8{
+        width:100px;
+    }
+    
+    .admincol9{
+        width:100px;
+    }
+    
+    .admincol10{
+        width:100px;
+    }
+    
+    .testsurveycol2 {
+        width:250px;
+    }
+    
+    .testsurveycol2 {
+        width:250px;
+    }
+    
+    .questioncol1 {
+        width:400px;
+    }
+    
+    .content {
+        background-image: url(../resources/pictures/backgroundforproject.jpg);
+        background-size: 100% 100%;
+        background-repeat:no-repeat;
+        padding: 10px;
+        text-align: center;
+        color: white;
+        font-size: 15px;
+        margin-bottom:90px;
+        background-size:cover;
+        min-height:450px;
+    }
+    
+    .indexPanelClass {
+        margin: 0 auto;
+        border:none;
+    }
+    
+    .center {
+        margin: auto;
+        width: 50%;
+        text-align:center;
+        padding: 10px;
+    }
+    
+    .header{
+        background-image: url(../resources/pictures/backgroundforheader.png);
+        background-size: 100% 100%;
+        padding: 20px;
+        text-align: center;
+        color: white;
+        font-size: 15px;
+        
+    }
+    
+    .footer{
+        background-image: url(../resources/pictures/backgroundforheader.png);
+        background-size: 100% 100%;
+        padding: 20px;
+        text-align: center;
+        color: white;
+        font-size: 15px;
+        position: fixed;
+        height: 50px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        margin-bottom: 0px;
+    }
+    
+    
+    .wrapper {
+        height: 100vh;
+        display: flex;
+    }
+    
+    .ui-selectonemenu-panel.hideDisabled .ui-selectonemenu-item.ui-state-disabled {
+        display: none;
+    }
+    
+    .myTable td:nth-child(1) {
+    width: 20px;
+}
+
+
+    
